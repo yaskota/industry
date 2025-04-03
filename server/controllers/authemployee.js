@@ -6,8 +6,8 @@ import transporter from '../nodemail.js'
 import attendencemodel from '../models/attendence.js';
 
 export const register=async(req,res)=>{
-    const {empId,name,email,password,phno}=req.body;
-    if(!name || !email || !password || !phno)
+    const {name,email,password}=req.body;
+    if( !email || !password )
     {
         return res.status(401).send({message:"required data was missing"})
     }
@@ -19,12 +19,12 @@ export const register=async(req,res)=>{
         }
 
         const hashpassword=await bcrypt.hash(password,10);
-        
+        const otp=String(Math.floor(10000+Math.random()*90000))
         const newstudent={
-            empId,
+            empId:otp,
             name,email,
             password:hashpassword,
-            phno
+           
         }
 
         const User=new employeemodel(newstudent);
@@ -39,11 +39,12 @@ export const register=async(req,res)=>{
             maxAge :7*24*60*60*1000
         })
 
+        
         const verificationMail={
             from:process.env.SENDER_EMAIL,
             to:email,
             subject:"welcome to JNTU sulthanpur",
-            text:`Welcome to JNTU sulthanpur your account has been created by email id ${email}`
+            text:`Welcome to JNTU sulthanpur your account has been created by email id ${email} and otp:${otp}`
         }
 
         await transporter.sendMail(verificationMail);
