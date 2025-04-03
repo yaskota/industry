@@ -1,0 +1,50 @@
+import mongoose from 'mongoose'
+
+const employeeschema=mongoose.Schema({
+    name:{
+        type:String,
+        required:true
+    },
+    empId:{
+        type:String,
+        required:true
+    },
+    
+    email:{
+        type:String,
+        required:true
+    },
+    password:{
+        type:String,
+        required:true
+    },
+    phno:{
+        type:String,
+        required:true
+    },
+    role:{
+        type:String,
+        default:"worker"
+    },
+    otpsend:{
+        type:String,
+        default:""
+    },
+    otp_expiry_time:{
+        type:Number,
+        default:0
+    },
+    department:{
+        type:String
+    },
+    baseSalary: { type: Number},
+    hourlyRate: { type: Number, default: 0 },
+    totalWorkHours: { type: Number, default: 0 },
+    totalLeaves: { type: Number, default: 0 },
+    overtimeHours: { type: Number, default: 0 },
+    isActive: { type: Boolean, default: true },
+})
+
+const employeemodel=mongoose.model('employee',employeeschema)
+
+export default employeemodel;
