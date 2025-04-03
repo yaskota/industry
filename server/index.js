@@ -6,6 +6,7 @@ import cors from 'cors';
 import employeerouter from './routers/employeerouter.js'
 import cookieParser from 'cookie-parser'
 import attendencerouter from './routers/attendencerouter.js';
+import adminrouter from './routers/adminrouter.js';
 
 
 const app=express()
@@ -25,6 +26,7 @@ app.use(cookieParser())
 
 app.use('/api/authemp',employeerouter);
 app.use('/api/attendence',attendencerouter);
+app.use('/api/admin',adminrouter)
 
 
 mongodb();

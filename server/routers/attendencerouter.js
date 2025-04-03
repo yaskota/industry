@@ -3,7 +3,7 @@ import { attend, intime, outTime } from '../controllers/attendencecontroll.js';
 
 const attendencerouter=express.Router();
 
-attendencerouter.post('/ingoing',intime);
+attendencerouter.post('/incoming',intime);
 attendencerouter.post('/outgoing',outTime);
 attendencerouter.get('/attend',attend);
 

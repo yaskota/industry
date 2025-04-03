@@ -45,7 +45,14 @@ export const outTime=async(req,res)=>{
 
         data.payment=hours*user.hourlyRate;
         data.active=false;
-        data.save();
+        await data.save();
+
+        user.totalWorkHours+=hours;
+        user.salary+=payment;
+        
+        await user.save();
+
+
         return res.status(201).send({message:"employee go to outside"})
 
     } catch (error) {
@@ -61,8 +68,8 @@ export const attend=async(req,res)=>{
         {
             return res.status(400).send({message:"user not found"});
         }
-        const attendencedata=await attendencemodel.find({empId});
-        if(!attendencedata)
+        const attendencedata=await attendencemodel.find({empId}).sort({ createdAt: -1 });
+        if(attendencedata.length===0)
         {
             return res.status(400).send({message:"he is new employee"})
         }
@@ -73,4 +80,7 @@ export const attend=async(req,res)=>{
         return res.status(400).send({message:"error in the get attendence"})
     }
 }
+
+
+
 

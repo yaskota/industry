@@ -34,7 +34,7 @@ const attendenceschema=mongoose.Schema({
         default:true
     }
 
-})
+},{ timestamps: true })
 
 const attendencemodel=mongoose.model('attemdence',attendenceschema);
 

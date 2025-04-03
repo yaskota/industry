@@ -37,12 +37,13 @@ const employeeschema=mongoose.Schema({
     department:{
         type:String
     },
-    baseSalary: { type: Number},
-    hourlyRate: { type: Number, default: 0 },
+    salary:{type:Number,default:0},
+    hourlyRate: { type: Number, default: 100 },
     totalWorkHours: { type: Number, default: 0 },
     totalLeaves: { type: Number, default: 0 },
     overtimeHours: { type: Number, default: 0 },
     isActive: { type: Boolean, default: true },
+
 })
 
 const employeemodel=mongoose.model('employee',employeeschema)

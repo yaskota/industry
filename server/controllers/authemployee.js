@@ -3,7 +3,7 @@ import employeemodel from '../models/employee.js'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs';
 import transporter from '../nodemail.js'
-
+import attendencemodel from '../models/attendence.js';
 
 export const register=async(req,res)=>{
     const {empId,name,email,password,phno}=req.body;
@@ -194,6 +194,24 @@ export const userdetails=async(req,res)=>{
 
     } catch (error) {
         return res.status(400).send({message:"error occur in send details"});
+    }
+}
+
+export const attenddetails=async(req,res)=>{
+    const {USER_ID}=req.body;
+    try {
+        const user=await employeemodel.findById(USER_ID);
+        const details=user.empId;
+        console.log(details);
+        const Data=await attendencemodel.find({empId:details});
+        if(!Data)
+        {
+            return res.status(201).send({message:"employee was new to industry",});
+        }
+        return res.status(201).send(Data);
+
+    } catch (error) {
+        return res.status(400).send({message:"error occur in attendence details"})
     }
 }
 
